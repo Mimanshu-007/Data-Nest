@@ -43,20 +43,15 @@ const AuthForm = ({type}: {type: FormType}) => {
     defaultValues: {
       fullName: "", email: "",
     },
-  })
+  });
  
   // 2. Define a submit handler.
   const onSubmit= async(values: z.infer<typeof formSchema>) => {
     setIsLoading( true);
-    setErrorMessage( " ");
+    setErrorMessage("");
 
     try{
-      // const user= createAccount({fullName, email}:{
-      //   fullName: values.fullName || "",
-      //   email: values.email,
-      // });
-      // setAccountId(user.accountId);
-      const user =
+        const user =
         type === "sign-up"
           ? await createAccount({
               fullName: values.fullName || "",
@@ -72,8 +67,7 @@ const AuthForm = ({type}: {type: FormType}) => {
     }finally{
       setIsLoading(false);
     }
-
-  }
+  };
 
   return (
     <>
@@ -120,16 +114,16 @@ const AuthForm = ({type}: {type: FormType}) => {
           )}
         />
 
-        { <Button type="submit" className="form-submit-button" disabled={isLoading}>
+        <Button type="submit" className="form-submit-button" disabled={isLoading}>
             {type=== "sign-in" ? "Sign In" : "Sign Up"}
 
             {isLoading && (
-                <Image src="/assets/icons/loader.svg" alt="loader" width={24} height={24} className="animate-spin ml-2" />
+                <Image src="/assets/icons/loader.svg" alt="loader" width={24} height={24} className="ml-2 animate-spin" />
             )}
-        </Button> }
+        </Button> 
 
         {errorMessage &&(
-          <p className="error-message">*{errorMessage}</p>
+          <p className="error-message">{errorMessage}</p>
         )}
 
         <div className="body-2 flex justify-center">
@@ -147,7 +141,7 @@ const AuthForm = ({type}: {type: FormType}) => {
       <OTPModal email={form.getValues("email") } accountId={accountId} />
     )}
     </>
-  )
-}
+  );
+};
 
 export default AuthForm
